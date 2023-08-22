@@ -13,7 +13,7 @@ function HourlyForecast({ hourlyData }) {
     <>
       <Stack spacing="2em">
         <Stack direction="row" spacing=".5em" justifyContent="center">
-          <QueryBuilderIcon fontSize="large" style={{ color: "FF8000" }} />
+          <QueryBuilderIcon fontSize="large" style={{ color: "#FFF" }} />
           <Typography variant="h4" color="white" fontWeight="bold">
             Hourly Forecast
           </Typography>

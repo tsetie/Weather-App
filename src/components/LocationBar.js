@@ -6,18 +6,24 @@ import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
-
-function LocationBar() {
+function LocationBar({ handleZipcode }) {
   return (
     <>
       <Grid container justifyContent="center" spacing={2} alignItems="center">
         <Grid item xs={8}>
           <TextField
+            onChange={handleZipcode}
             id="outlined-basic"
-            label="City"
+            label="Search Zip Code"
             variant="outlined"
             fullWidth
             sx={{ input: { color: "#FFFFFF" } }}
+            InputLabelProps={{
+              style: {
+                color: "#fff",
+                fontWeight: "bold",
+              },
+            }}
           />
         </Grid>
         <Grid item xs={1}>

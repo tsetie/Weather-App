@@ -11,7 +11,7 @@ function WeeklyForecast({ weatherData }) {
     <>
       <Stack spacing="2em">
         <Stack direction="row" spacing=".5em" justifyContent="center">
-          <CalendarMonthIcon fontSize="large" style={{ color: "FF8000" }} />
+          <CalendarMonthIcon fontSize="large" style={{ color: "#FFF" }} />
           <Typography variant="h4" color="white" fontWeight="bold">
             Weekly Forecast
           </Typography>
