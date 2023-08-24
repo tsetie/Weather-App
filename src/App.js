@@ -1,6 +1,8 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import "./components/LocationBar";
+import hourlyService from "./services/WeatherService";
 import LocationBar from "./components/LocationBar";
 import Box from "@mui/material/Box";
 import TodayInfo from "./components/TodayInfo";
@@ -8,7 +10,6 @@ import HourlyForecast from "./components/HourlyForecast";
 import WeeklyForecast from "./components/WeeklyForecast";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
-import { useState } from "react";
 
 function App() {
   var weatherData = {
@@ -1158,6 +1159,10 @@ function App() {
     setZipcode(e.target.value);
     console.log(zipcode);
   };
+  useEffect(() => {
+    const hourlyData = hourlyService(zipcode);
+    console.log(hourlyData);
+  });
   return (
     <Box
       p={2}
