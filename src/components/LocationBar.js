@@ -28,9 +28,6 @@ function LocationBar({ handleZipcode }) {
         </Grid>
         <Grid item xs={1}>
           <Button>
-            <SearchIcon fontSize="large" style={{ color: "#FFF" }} />
-          </Button>
-          <Button>
             <FmdGoodOutlinedIcon fontSize="large" style={{ color: "#FFF" }} />
           </Button>
         </Grid>
