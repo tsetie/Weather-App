@@ -6,7 +6,7 @@ import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
 
-function WeeklyForecast({ zipcode }) {
+function WeeklyForecast({ zipcode, units, coords }) {
   var today = new Date();
   const [weeklyWeatherData, setWeeklyWeatherData] = useState([]);
 
@@ -15,16 +15,40 @@ function WeeklyForecast({ zipcode }) {
     getWeeklyWeather(zipcode);
   }, []);
 
-  // Get request for new zipcode
+  // Get request for new zipcode or units
   useEffect(() => {
-    getWeeklyWeather();
-  }, [zipcode]);
+    if (zipcode) {
+      getWeeklyWeather();
+    } else {
+      getWeeklyWeatherWithGeolocation();
+    }
+  }, [zipcode, units, coords]);
 
   function getWeeklyWeather() {
     fetch(
       "https://api.openweathermap.org/data/2.5/forecast/daily?zip=" +
         zipcode +
-        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=imperial"
+        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=" +
+        units
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setWeeklyWeatherData(data["list"]);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  function getWeeklyWeatherWithGeolocation() {
+    fetch(
+      "https://api.openweathermap.org/data/2.5/forecast/daily?lat=" +
+        coords.latitude +
+        "57&lon=" +
+        coords.longitude +
+        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=" +
+        units
     )
       .then((res) => res.json())
       .then((data) => {

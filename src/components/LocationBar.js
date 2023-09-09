@@ -6,7 +6,12 @@ import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
-function LocationBar({ handleZipcode }) {
+function LocationBar({
+  handleZipcode,
+  handleCelcius,
+  handleFahrenheit,
+  handleGettingUserLocation,
+}) {
   return (
     <>
       <Grid container justifyContent="center" spacing={2} alignItems="center">
@@ -27,7 +32,7 @@ function LocationBar({ handleZipcode }) {
           />
         </Grid>
         <Grid item xs={1}>
-          <Button>
+          <Button onClick={handleGettingUserLocation}>
             <FmdGoodOutlinedIcon fontSize="large" style={{ color: "#FFF" }} />
           </Button>
         </Grid>
@@ -42,6 +47,7 @@ function LocationBar({ handleZipcode }) {
               variant="Text"
               fullWidth
               style={{ color: "#FFFFFF", fontSize: "20px" }}
+              onClick={handleFahrenheit}
             >
               F &#176;
             </Button>
@@ -49,6 +55,7 @@ function LocationBar({ handleZipcode }) {
               variant="Text"
               fullWidth
               style={{ color: "#FFFFFF", fontSize: "20px" }}
+              onClick={handleCelcius}
             >
               C &#176;
             </Button>

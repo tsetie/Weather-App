@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
 
-function TodayInfo({ zipcode }) {
+function TodayInfo({ zipcode, units, coords }) {
   const [todayWeather, setTodayWeather] = useState({});
 
   // Default get request for weather (Lowell)
@@ -14,15 +14,21 @@ function TodayInfo({ zipcode }) {
 
   // Get request for new zipcode
   useEffect(() => {
-    getTodayWeather();
-  }, [zipcode]);
+    if (zipcode) {
+      getTodayWeather();
+    } else {
+      getTodayWeatherWithGeolocation();
+    }
+  }, [zipcode, units]);
 
   function getTodayWeather() {
     console.log("hey");
     fetch(
       "https://api.openweathermap.org/data/2.5/forecast/daily?zip=" +
         zipcode +
-        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=imperial&cnt=7"
+        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=" +
+        units +
+        "&cnt=7"
     )
       .then((res) => res.json())
       .then((data) => {
@@ -33,6 +39,25 @@ function TodayInfo({ zipcode }) {
         console.log(err.message);
       });
   }
+  function getTodayWeatherWithGeolocation() {
+    fetch(
+      "https://api.openweathermap.org/data/2.5/forecast/daily?lat=" +
+        coords.latitude +
+        "57&lon=" +
+        coords.longitude +
+        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=" +
+        units
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setTodayWeather(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
   return (
     <>
       <Box display="flex" justifyContent="center">

@@ -27,6 +27,28 @@ function App() {
     }
   };
 
+  // Changing units b/w F & C
+  const [units, setUnits] = useState("imperial");
+  const handleCelcius = (e) => {
+    setUnits("metric");
+  };
+  const handleFahrenheit = (e) => {
+    setUnits("imperial");
+  };
+
+  // Getting users location with geolocation
+  const [coords, setCoords] = useState(null);
+  const handleGettingUserLocation = (e) => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setZipcode(null); // set zipcode null so it wont go into the zipcode fetch when useEffect is triggered
+        setCoords(position.coords);
+      });
+    } else {
+      console.log("Unable to get geolocation.");
+    }
+  };
+
   if (Date.now().getHours >= 5 && Date.now().getHours <= 17) {
     backgroundColor = dayColor;
     backgroundColor2 = dayColor2;
@@ -43,15 +65,20 @@ function App() {
       }}
       height="100vh"
     >
-      <LocationBar handleZipcode={handleZipcode} />
-      <TodayInfo zipcode={zipcode} />
+      <LocationBar
+        handleZipcode={handleZipcode}
+        handleCelcius={handleCelcius}
+        handleFahrenheit={handleFahrenheit}
+        handleGettingUserLocation={handleGettingUserLocation}
+      />
+      <TodayInfo zipcode={zipcode} units={units} coords={coords} />
       <Stack
         direction="row"
         justifyContent="space-evenly"
         divider={<Divider orientation="vertical" variant="middle" flexItem />}
       >
-        <HourlyForecast zipcode={zipcode} />
-        <WeeklyForecast zipcode={zipcode} />
+        <HourlyForecast zipcode={zipcode} units={units} coords={coords} />
+        <WeeklyForecast zipcode={zipcode} units={units} coords={coords} />
       </Stack>
     </Box>
   );

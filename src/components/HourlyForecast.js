@@ -7,7 +7,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Card from "@mui/material/Card";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
 import Box from "@mui/material/Box";
-function HourlyForecast({ zipcode }) {
+function HourlyForecast({ zipcode, units, coords }) {
   const [hourlyTemp, setHourlyTemp] = useState([]);
 
   // Default get request for weather (Las Vegas)
@@ -15,16 +15,22 @@ function HourlyForecast({ zipcode }) {
     getHourlyWeather(zipcode);
   }, []);
 
-  // Get request for new zipcode
+  // Get request for new zipcode or units
   useEffect(() => {
-    getHourlyWeather();
-  }, [zipcode]);
+    if (zipcode) {
+      getHourlyWeather();
+    } else {
+      getHourlyWeatherWithGeolocation();
+    }
+  }, [zipcode, units]);
 
   function getHourlyWeather() {
     fetch(
       "https://pro.openweathermap.org/data/2.5/forecast/hourly?zip=" +
         zipcode +
-        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=imperial&cnt=24"
+        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=" +
+        units +
+        "&cnt=24"
     )
       .then((res) => res.json())
       .then((data) => {
@@ -35,6 +41,25 @@ function HourlyForecast({ zipcode }) {
         console.log(err.message);
       });
   }
+
+  function getHourlyWeatherWithGeolocation() {
+    fetch(
+      "https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=" +
+        coords.latitude +
+        "&lon=" +
+        coords.longitude +
+        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=" +
+        units
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setHourlyTemp(data["list"]);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
   var today = new Date();
   return (
     <>
