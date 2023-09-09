@@ -32,11 +32,12 @@ function TodayInfo({ zipcode, units, coords }) {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setTodayWeather(data);
+        if (data["cod"] != "404") {
+          setTodayWeather(data);
+        }
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err.message);
       });
   }
   function getTodayWeatherWithGeolocation() {

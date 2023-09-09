@@ -6,18 +6,34 @@ import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+
 function LocationBar({
   handleZipcode,
   handleCelcius,
   handleFahrenheit,
   handleGettingUserLocation,
+  showAlert,
 }) {
   return (
     <>
+      <Stack sx={{ justifyContent: "center", alignItems: "center" }}>
+        {showAlert ? (
+          <Alert sx={{ marginBottom: "1em" }} severity="error">
+            <AlertTitle>
+              <strong>Location not found</strong>
+            </AlertTitle>
+            <strong>Enter a new zipcode!</strong>
+          </Alert>
+        ) : null}
+      </Stack>
+
       <Grid container justifyContent="center" spacing={2} alignItems="center">
         <Grid item xs={8}>
           <TextField
             onChange={handleZipcode}
+            type="number"
             id="outlined-basic"
             label="Search Zip Code"
             variant="outlined"

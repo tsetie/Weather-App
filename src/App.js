@@ -27,6 +27,8 @@ function App() {
     }
   };
 
+  const [showAlert, setShowAlert] = useState(false);
+
   // Changing units b/w F & C
   const [units, setUnits] = useState("imperial");
   const handleCelcius = (e) => {
@@ -70,6 +72,7 @@ function App() {
         handleCelcius={handleCelcius}
         handleFahrenheit={handleFahrenheit}
         handleGettingUserLocation={handleGettingUserLocation}
+        showAlert={showAlert}
       />
       <TodayInfo zipcode={zipcode} units={units} coords={coords} />
       <Stack
@@ -77,7 +80,12 @@ function App() {
         justifyContent="space-evenly"
         divider={<Divider orientation="vertical" variant="middle" flexItem />}
       >
-        <HourlyForecast zipcode={zipcode} units={units} coords={coords} />
+        <HourlyForecast
+          zipcode={zipcode}
+          units={units}
+          coords={coords}
+          setShowAlert={setShowAlert}
+        />
         <WeeklyForecast zipcode={zipcode} units={units} coords={coords} />
       </Stack>
     </Box>

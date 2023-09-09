@@ -1,13 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Typography } from "@mui/material";
+import { Snackbar, Typography } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Stack from "@mui/material/Stack";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Card from "@mui/material/Card";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
 import Box from "@mui/material/Box";
-function HourlyForecast({ zipcode, units, coords }) {
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+
+function HourlyForecast({ zipcode, units, coords, setShowAlert }) {
   const [hourlyTemp, setHourlyTemp] = useState([]);
 
   // Default get request for weather (Las Vegas)
@@ -34,11 +37,12 @@ function HourlyForecast({ zipcode, units, coords }) {
     )
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
-        setHourlyTemp(data["list"]);
-      })
-      .catch((err) => {
-        console.log(err.message);
+        if (data["cod"] != "404") {
+          setHourlyTemp(data["list"]);
+          setShowAlert(false);
+        } else {
+          setShowAlert(true);
+        }
       });
   }
 
@@ -54,6 +58,7 @@ function HourlyForecast({ zipcode, units, coords }) {
       .then((res) => res.json())
       .then((data) => {
         setHourlyTemp(data["list"]);
+        setShowAlert(false);
       })
       .catch((err) => {
         console.log(err.message);

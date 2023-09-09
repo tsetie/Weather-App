@@ -34,7 +34,9 @@ function WeeklyForecast({ zipcode, units, coords }) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setWeeklyWeatherData(data["list"]);
+        if (data["cod"] != "404") {
+          setWeeklyWeatherData(data["list"]);
+        }
       })
       .catch((err) => {
         console.log(err.message);
