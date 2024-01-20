@@ -26,7 +26,7 @@ function TodayInfo({ zipcode, units, coords }) {
     fetch(
       "https://api.openweathermap.org/data/2.5/forecast/daily?zip=" +
         zipcode +
-        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=" +
+        "&appid=fcc51394a211b5d91ede128ba9c971e5&units=" +
         units +
         "&cnt=7"
     )
@@ -46,7 +46,7 @@ function TodayInfo({ zipcode, units, coords }) {
         coords.latitude +
         "57&lon=" +
         coords.longitude +
-        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=" +
+        "&appid=fcc51394a211b5d91ede128ba9c971e5&units=" +
         units
     )
       .then((res) => res.json())
@@ -61,28 +61,33 @@ function TodayInfo({ zipcode, units, coords }) {
 
   return (
     <>
-      <Box display="flex" justifyContent="center">
+      <Box display="flex" justifyContent="flex-start">
         {Object.values(todayWeather).length === 0 ? null : (
           <Stack p={3.5}>
-            <Typography variant="h2" color="white" textAlign="center">
+            <Typography variant="h3" color="white" textAlign="center">
               {todayWeather["city"]["name"]}
             </Typography>
-            <Typography
-              variant="h2"
-              color="white"
-              textAlign="center"
-              justifyContent="center"
+            <Stack
+              direction="row"
+              spacing="1.5em"
+              justifyContent="flex-start"
+              mb="2.5em"
             >
-              {Math.round(todayWeather["list"][0]["temp"]["day"])}&#176;
-            </Typography>
-            <Stack direction="row" spacing="1.5em" justifyContent="center">
-              <Typography variant="h5" color="#FFF" fontWeight="bold">
+              <Typography variant="h8" color="#B1B2B5">
                 L: {Math.round(todayWeather["list"][0]["temp"]["min"])}&#176;
               </Typography>
-              <Typography variant="h5" color="#FFF" fontWeight="bold">
+              <Typography variant="h8" color="#B1B2B5">
                 H: {Math.round(todayWeather["list"][0]["temp"]["max"])}&#176;
               </Typography>
             </Stack>
+            <Typography
+              variant="h2"
+              color="white"
+              justifyContent="flex-start"
+              fontWeight="bold"
+            >
+              {Math.round(todayWeather["list"][0]["temp"]["day"])}&#176;
+            </Typography>
           </Stack>
         )}
       </Box>

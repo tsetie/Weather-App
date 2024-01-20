@@ -9,6 +9,7 @@ import HourlyForecast from "./components/HourlyForecast";
 import WeeklyForecast from "./components/WeeklyForecast";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
 
 function App() {
   var dayColor = "#FBAB7E";
@@ -51,13 +52,13 @@ function App() {
     }
   };
 
-  if (Date.now().getHours >= 5 && Date.now().getHours <= 17) {
-    backgroundColor = dayColor;
-    backgroundColor2 = dayColor2;
-  } else {
-    backgroundColor = nightColor1;
-    backgroundColor2 = nightColor2;
-  }
+  // if (Date.now().getHours >= 5 && Date.now().getHours <= 17) {
+  //   backgroundColor = dayColor;
+  //   backgroundColor2 = dayColor2;
+  // } else {
+  backgroundColor = nightColor1;
+  backgroundColor2 = nightColor2;
+  // }
 
   return (
     <Box
@@ -74,18 +75,17 @@ function App() {
         handleGettingUserLocation={handleGettingUserLocation}
         showAlert={showAlert}
       />
-      <TodayInfo zipcode={zipcode} units={units} coords={coords} />
-      <Stack
-        direction="row"
-        justifyContent="space-evenly"
-        divider={<Divider orientation="vertical" variant="middle" flexItem />}
-      >
-        <HourlyForecast
-          zipcode={zipcode}
-          units={units}
-          coords={coords}
-          setShowAlert={setShowAlert}
-        />
+      <Stack direction="row" justifyContent="space-around">
+        <Stack>
+          <TodayInfo zipcode={zipcode} units={units} coords={coords} />
+
+          <HourlyForecast
+            zipcode={zipcode}
+            units={units}
+            coords={coords}
+            setShowAlert={setShowAlert}
+          />
+        </Stack>
         <WeeklyForecast zipcode={zipcode} units={units} coords={coords} />
       </Stack>
     </Box>

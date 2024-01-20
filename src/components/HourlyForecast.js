@@ -3,13 +3,11 @@ import { useState, useEffect } from "react";
 import { Snackbar, Typography } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Stack from "@mui/material/Stack";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import Card from "@mui/material/Card";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
-import Box from "@mui/material/Box";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Card from "@mui/material/Card";
 function HourlyForecast({ zipcode, units, coords, setShowAlert }) {
   const [hourlyTemp, setHourlyTemp] = useState([]);
 
@@ -31,7 +29,7 @@ function HourlyForecast({ zipcode, units, coords, setShowAlert }) {
     fetch(
       "https://pro.openweathermap.org/data/2.5/forecast/hourly?zip=" +
         zipcode +
-        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=" +
+        "&appid=fcc51394a211b5d91ede128ba9c971e5&units=" +
         units +
         "&cnt=24"
     )
@@ -52,7 +50,7 @@ function HourlyForecast({ zipcode, units, coords, setShowAlert }) {
         coords.latitude +
         "&lon=" +
         coords.longitude +
-        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=" +
+        "&appid=fcc51394a211b5d91ede128ba9c971e5&units=" +
         units
     )
       .then((res) => res.json())
@@ -68,56 +66,42 @@ function HourlyForecast({ zipcode, units, coords, setShowAlert }) {
   var today = new Date();
   return (
     <>
-      <Stack spacing="2em">
-        <Stack direction="row" spacing=".5em" justifyContent="center">
-          <QueryBuilderIcon fontSize="large" style={{ color: "#FFF" }} />
-          <Typography variant="h4" color="white" fontWeight="bold">
-            Hourly Forecast
+      <Card
+        sx={{
+          backgroundColor: "#56637B",
+          borderRadius: "2.5em",
+          height: "20vh",
+          p: "2em",
+        }}
+      >
+        <Stack direction="row">
+          <Typography color="#B1B2B5" fontWeight="bold" pb="1em">
+            HOURLY FORECAST
           </Typography>
         </Stack>
-        <Box style={{ "overflow-y": "auto", height: "60vh" }}>
-          <Stack spacing="1eam" p="1em">
-            {hourlyTemp
-              ? hourlyTemp.map((temp) => (
-                  <Card>
-                    <Stack
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="center"
-                      p="1em"
-                      width="30vw"
-                      height="3vh"
-                    >
-                      <Typography variant="h6" fontWeight="bold">
-                        {new Date(temp["dt"] * 1000).toLocaleTimeString(
-                          "en-US",
-                          {
-                            timeStyle: "short",
-                          }
-                        )}
-                      </Typography>
-                      <Typography variant="h5" fontWeight="bold">
-                        {Math.round(temp["main"]["temp"])}&#176;
-                      </Typography>
-                      <Stack
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <img
-                          src={`https://openweathermap.org/img/wn/${temp["weather"][0]["icon"]}@2x.png`}
-                        ></img>
-                        <Typography variant="h7" fontWeight="bold">
-                          {temp["weather"][0]["main"]}
-                        </Typography>
-                      </Stack>
-                    </Stack>
-                  </Card>
-                ))
-              : null}
-          </Stack>
-        </Box>
-      </Stack>
+
+        <Stack direction="row">
+          {hourlyTemp
+            ? hourlyTemp.map((temp, i) =>
+                i < 6 ? (
+                  <Stack alignItems="center">
+                    <Typography variant="h7" color="#B1B2B5" fontWeight="bold">
+                      {new Date(temp["dt"] * 1000).toLocaleTimeString("en-US", {
+                        timeStyle: "short",
+                      })}
+                    </Typography>
+                    <img
+                      src={`https://openweathermap.org/img/wn/${temp["weather"][0]["icon"]}@2x.png`}
+                    ></img>
+                    <Typography variant="h6" color="#FFF" fontWeight="bold">
+                      {Math.round(temp["main"]["temp"])}&#176;
+                    </Typography>
+                  </Stack>
+                ) : null
+              )
+            : null}
+        </Stack>
+      </Card>
     </>
   );
 }

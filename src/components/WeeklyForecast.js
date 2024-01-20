@@ -1,9 +1,11 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { ListItem, Typography } from "@mui/material";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
 import { useState, useEffect } from "react";
 
 function WeeklyForecast({ zipcode, units, coords }) {
@@ -28,7 +30,7 @@ function WeeklyForecast({ zipcode, units, coords }) {
     fetch(
       "https://api.openweathermap.org/data/2.5/forecast/daily?zip=" +
         zipcode +
-        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=" +
+        "&appid=fcc51394a211b5d91ede128ba9c971e5&units=" +
         units
     )
       .then((res) => res.json())
@@ -49,7 +51,7 @@ function WeeklyForecast({ zipcode, units, coords }) {
         coords.latitude +
         "57&lon=" +
         coords.longitude +
-        "&appid=0d31ac28d5b7522c7167936c3bc94907&units=" +
+        "&appid=fcc51394a211b5d91ede128ba9c971e5&units=" +
         units
     )
       .then((res) => res.json())
@@ -63,27 +65,41 @@ function WeeklyForecast({ zipcode, units, coords }) {
   }
   return (
     <>
-      <Stack spacing="2em">
-        <Stack direction="row" spacing=".5em" justifyContent="center">
-          <CalendarMonthIcon fontSize="large" style={{ color: "#FFF" }} />
-          <Typography variant="h4" color="white" fontWeight="bold">
-            Weekly Forecast
+      <Card
+        sx={{
+          backgroundColor: "#56637B",
+          borderRadius: "2.5em",
+          mt: "2em",
+          p: "1.5em",
+        }}
+      >
+        <Stack
+          direction="row"
+          width="25vw"
+          height="4vh"
+          pt="1em"
+          pl="1em"
+          pr="1em"
+        >
+          <Typography color="#B1B2B5" fontWeight="bold">
+            7-DAY FORECAST
           </Typography>
         </Stack>
-        <Box style={{ "overflow-y": "auto", height: "60vh" }}>
-          <Stack spacing="1em" p="1em">
-            {weeklyWeatherData
-              ? weeklyWeatherData.map((dayInfo) => (
-                  <Card>
+        <List>
+          {weeklyWeatherData
+            ? weeklyWeatherData.map((dayInfo, i) => (
+                <>
+                  <ListItem>
                     <Stack
                       direction="row"
                       justifyContent="space-between"
                       alignItems="center"
-                      p="1em"
-                      width="30vw"
-                      height="8vh"
+                      width="25vw"
+                      height="4vh"
+                      mb="1em"
+                      mt="1em"
                     >
-                      <Typography variant="h5" fontWeight="bold">
+                      <Typography variant="h7" color="#B1B2B5">
                         {today.toDateString() !==
                         new Date(dayInfo["dt"] * 1000).toDateString()
                           ? new Date(dayInfo["dt"] * 1000).toLocaleDateString(
@@ -94,7 +110,7 @@ function WeeklyForecast({ zipcode, units, coords }) {
                             )
                           : "Today"}
                       </Typography>
-                      <Typography variant="h5" fontWeight="bold">
+                      <Typography variant="h7" color="#FFF" fontWeight="bold">
                         {Math.round(dayInfo["temp"]["day"])}&#176;
                       </Typography>
                       <Stack
@@ -105,17 +121,18 @@ function WeeklyForecast({ zipcode, units, coords }) {
                         <img
                           src={`https://openweathermap.org/img/wn/${dayInfo["weather"][0]["icon"]}@2x.png`}
                         ></img>
-                        <Typography variant="h7" fontWeight="bold">
+                        <Typography variant="h7" color="#FFF">
                           {dayInfo["weather"][0]["main"]}
                         </Typography>
                       </Stack>
                     </Stack>
-                  </Card>
-                ))
-              : null}
-          </Stack>
-        </Box>
-      </Stack>
+                  </ListItem>
+                  {i < 6 && <Divider variant="middle" component="li" />}
+                </>
+              ))
+            : null}
+        </List>
+      </Card>
     </>
   );
 }
