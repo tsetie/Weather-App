@@ -29,7 +29,7 @@ function LocationBar({
         ) : null}
       </Stack>
 
-      <Grid container justifyContent="center" spacing={2} alignItems="center">
+      <Grid container spacing={2} justifyContent="center">
         <Grid item xs={8}>
           <TextField
             onChange={handleZipcode}

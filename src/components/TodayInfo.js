@@ -22,7 +22,6 @@ function TodayInfo({ zipcode, units, coords }) {
   }, [zipcode, units]);
 
   function getTodayWeather() {
-    console.log("hey");
     fetch(
       "https://api.openweathermap.org/data/2.5/forecast/daily?zip=" +
         zipcode +
@@ -61,33 +60,40 @@ function TodayInfo({ zipcode, units, coords }) {
 
   return (
     <>
-      <Box display="flex" justifyContent="flex-start">
+      <Box display="flex" justifyContent="center">
         {Object.values(todayWeather).length === 0 ? null : (
-          <Stack p={3.5}>
-            <Typography variant="h3" color="white" textAlign="center">
-              {todayWeather["city"]["name"]}
-            </Typography>
-            <Stack
-              direction="row"
-              spacing="1.5em"
-              justifyContent="flex-start"
-              mb="2.5em"
-            >
-              <Typography variant="h8" color="#B1B2B5">
-                L: {Math.round(todayWeather["list"][0]["temp"]["min"])}&#176;
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            width="50vw"
+            alignItems="center"
+          >
+            <Stack p={3.5}>
+              <Typography variant="h3" color="white" textAlign="center">
+                {todayWeather["city"]["name"]}
               </Typography>
-              <Typography variant="h8" color="#B1B2B5">
-                H: {Math.round(todayWeather["list"][0]["temp"]["max"])}&#176;
+              <Stack
+                direction="row"
+                spacing="1.5em"
+                justifyContent="flex-start"
+                mb="2.5em"
+              >
+                <Typography variant="h8" color="#B1B2B5">
+                  L: {Math.round(todayWeather["list"][0]["temp"]["min"])}&#176;
+                </Typography>
+                <Typography variant="h8" color="#B1B2B5">
+                  H: {Math.round(todayWeather["list"][0]["temp"]["max"])}&#176;
+                </Typography>
+              </Stack>
+              <Typography
+                variant="h2"
+                color="white"
+                justifyContent="flex-start"
+                fontWeight="bold"
+              >
+                {Math.round(todayWeather["list"][0]["temp"]["day"])}&#176;
               </Typography>
             </Stack>
-            <Typography
-              variant="h2"
-              color="white"
-              justifyContent="flex-start"
-              fontWeight="bold"
-            >
-              {Math.round(todayWeather["list"][0]["temp"]["day"])}&#176;
-            </Typography>
           </Stack>
         )}
       </Box>
@@ -95,5 +101,3 @@ function TodayInfo({ zipcode, units, coords }) {
   );
 }
 export default TodayInfo;
-
-//Add day and night temp and forecast (cloudy, rainy, etc)

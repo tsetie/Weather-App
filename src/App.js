@@ -7,9 +7,8 @@ import Box from "@mui/material/Box";
 import TodayInfo from "./components/TodayInfo";
 import HourlyForecast from "./components/HourlyForecast";
 import WeeklyForecast from "./components/WeeklyForecast";
+import TodayDetails from "./components/TodayDetails";
 import Stack from "@mui/material/Stack";
-import Divider from "@mui/material/Divider";
-import Grid from "@mui/material/Grid";
 
 function App() {
   var dayColor = "#FBAB7E";
@@ -24,7 +23,6 @@ function App() {
     var newZip = e.target.value;
     if (newZip.length === 5) {
       setZipcode(e.target.value);
-      console.log(zipcode);
     }
   };
 
@@ -51,7 +49,7 @@ function App() {
       console.log("Unable to get geolocation.");
     }
   };
-
+  // Changing background based on  daytime/nighttime (removed for now)
   // if (Date.now().getHours >= 5 && Date.now().getHours <= 17) {
   //   backgroundColor = dayColor;
   //   backgroundColor2 = dayColor2;
@@ -61,9 +59,9 @@ function App() {
   // }
 
   return (
-    <Box
-      p={2}
+    <Stack
       sx={{
+        p: "1em",
         background: `linear-gradient(to right,${backgroundColor}, ${backgroundColor2})`,
       }}
       height="100vh"
@@ -85,10 +83,15 @@ function App() {
             coords={coords}
             setShowAlert={setShowAlert}
           />
+          <TodayDetails
+            zipcode={zipcode}
+            units={units}
+            coords={coords}
+          ></TodayDetails>
         </Stack>
         <WeeklyForecast zipcode={zipcode} units={units} coords={coords} />
       </Stack>
-    </Box>
+    </Stack>
   );
 }
 
