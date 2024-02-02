@@ -67,7 +67,7 @@ function HourlyForecast({ zipcode, units, coords, setShowAlert }) {
         sx={{
           backgroundColor: "#56637B",
           borderRadius: "2.5em",
-          height: "20vh",
+          width: "100%",
           p: "2em",
         }}
       >
@@ -77,7 +77,7 @@ function HourlyForecast({ zipcode, units, coords, setShowAlert }) {
           </Typography>
         </Stack>
 
-        <Stack direction="row">
+        <Stack direction={{ xs: "column", md: "row" }} width="100%">
           {hourlyTemp
             ? hourlyTemp.map((temp, i) => (
                 <Stack alignItems="center">

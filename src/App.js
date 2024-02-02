@@ -3,12 +3,18 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import "./components/LocationBar";
 import LocationBar from "./components/LocationBar";
-import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import TodayInfo from "./components/TodayInfo";
 import HourlyForecast from "./components/HourlyForecast";
 import WeeklyForecast from "./components/WeeklyForecast";
 import TodayDetails from "./components/TodayDetails";
 import Stack from "@mui/material/Stack";
+
+import HourlyForecast1 from "./components/HourlyForecast1";
+import LocationBar1 from "./components/LocationBar1";
+import TodayDetails1 from "./components/TodayDetails1";
+import TodayInfo1 from "./components/TodayInfo1";
+import WeeklyForecast1 from "./components/WeeklyForecast1";
 
 function App() {
   var dayColor = "#FBAB7E";
@@ -59,39 +65,70 @@ function App() {
   // }
 
   return (
-    <Stack
+    <Grid
+      container
       sx={{
-        p: "1em",
         background: `linear-gradient(to right,${backgroundColor}, ${backgroundColor2})`,
       }}
-      height="100vh"
     >
-      <LocationBar
-        handleZipcode={handleZipcode}
-        handleCelcius={handleCelcius}
-        handleFahrenheit={handleFahrenheit}
-        handleGettingUserLocation={handleGettingUserLocation}
-        showAlert={showAlert}
-      />
-      <Stack direction="row" justifyContent="space-around">
-        <Stack>
-          <TodayInfo zipcode={zipcode} units={units} coords={coords} />
+      <Grid item xs={12} md={12} m="1em">
+        <LocationBar1
+          handleZipcode={handleZipcode}
+          handleCelcius={handleCelcius}
+          handleFahrenheit={handleFahrenheit}
+          handleGettingUserLocation={handleGettingUserLocation}
+          showAlert={showAlert}
+        />
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <TodayInfo1 zipcode={zipcode} units={units} coords={coords} />
+      </Grid>
+      <Grid item xs={12} md={8}>
+        <HourlyForecast1
+          zipcode={zipcode}
+          units={units}
+          coords={coords}
+          setShowAlert={setShowAlert}
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <WeeklyForecast1 />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <TodayDetails1 />
+      </Grid>
 
-          <HourlyForecast
-            zipcode={zipcode}
-            units={units}
-            coords={coords}
-            setShowAlert={setShowAlert}
-          />
-          <TodayDetails
-            zipcode={zipcode}
-            units={units}
-            coords={coords}
-          ></TodayDetails>
-        </Stack>
+      {/* <Grid item xs={12} md={12}>
+        <LocationBar
+          handleZipcode={handleZipcode}
+          handleCelcius={handleCelcius}
+          handleFahrenheit={handleFahrenheit}
+          handleGettingUserLocation={handleGettingUserLocation}
+          showAlert={showAlert}
+        />
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <TodayInfo zipcode={zipcode} units={units} coords={coords} />
+      </Grid>
+      <Grid item xs={12} md={8}>
+        <HourlyForecast
+          zipcode={zipcode}
+          units={units}
+          coords={coords}
+          setShowAlert={setShowAlert}
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
         <WeeklyForecast zipcode={zipcode} units={units} coords={coords} />
-      </Stack>
-    </Stack>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <TodayDetails
+          zipcode={zipcode}
+          units={units}
+          coords={coords}
+        ></TodayDetails>
+      </Grid> */}
+    </Grid>
   );
 }
 
