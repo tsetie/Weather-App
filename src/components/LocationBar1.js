@@ -12,13 +12,13 @@ import {
 } from "@mui/material";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 
-function LocationBar1(
+function LocationBar1({
   handleZipcode,
   handleCelcius,
   handleFahrenheit,
   handleGettingUserLocation,
-  showAlert
-) {
+  showAlert,
+}) {
   return (
     <>
       <Stack sx={{ justifyContent: "center", alignItems: "center" }}>

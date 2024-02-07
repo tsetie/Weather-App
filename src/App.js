@@ -83,7 +83,7 @@ function App() {
       <Grid item xs={12} md={4}>
         <TodayInfo1 zipcode={zipcode} units={units} coords={coords} />
       </Grid>
-      <Grid item xs={12} md={8}>
+      <Grid item xs={12} md={7}>
         <HourlyForecast1
           zipcode={zipcode}
           units={units}
@@ -91,8 +91,8 @@ function App() {
           setShowAlert={setShowAlert}
         />
       </Grid>
-      <Grid item xs={12} md={6}>
-        <WeeklyForecast1 />
+      <Grid item xs={12} md={4} justifyContent="space-between">
+        <WeeklyForecast1 zipcode={zipcode} units={units} coords={coords} />
       </Grid>
       <Grid item xs={12} md={6}>
         <TodayDetails1 />

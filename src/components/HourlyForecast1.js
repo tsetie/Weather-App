@@ -1,5 +1,6 @@
-import { React, useState, useEffect } from "react";
-import { Typography, Card } from "@mui/material";
+import React from "react";
+import { useState, useEffect } from "react";
+import { Typography, Card, Stack, Grid, Box } from "@mui/material";
 function HourlyForecast1({ zipcode, units, coords, setShowAlert }) {
   const [hourlyTemp, setHourlyTemp] = useState([]);
 
@@ -57,5 +58,43 @@ function HourlyForecast1({ zipcode, units, coords, setShowAlert }) {
   }
 
   var today = new Date();
+  return (
+    <>
+      <Card
+        sx={{
+          backgroundColor: "#56637B",
+          borderRadius: "2.5em",
+          p: "2em",
+          m: "1em",
+          overflow: "auto",
+        }}
+      >
+        <Typography color="#B1B2B5" fontWeight="bold">
+          HOURLY FORECAST
+        </Typography>
+
+        <Stack direction="row">
+          {hourlyTemp
+            ? hourlyTemp.map((temp, i) => (
+                <Stack alignItems="center">
+                  <Typography variant="h7" color="#B1B2B5" fontWeight="bold">
+                    {new Date(temp["dt"] * 1000).toLocaleTimeString("en-US", {
+                      timeStyle: "short",
+                    })}
+                  </Typography>
+                  <Box
+                    component="img"
+                    src={`https://openweathermap.org/img/wn/${temp["weather"][0]["icon"]}@2x.png`}
+                  ></Box>
+                  <Typography variant="h6" color="#FFF" fontWeight="bold">
+                    {Math.round(temp["main"]["temp"])}&#176;
+                  </Typography>
+                </Stack>
+              ))
+            : null}
+        </Stack>
+      </Card>
+    </>
+  );
 }
 export default HourlyForecast1;

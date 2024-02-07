@@ -57,11 +57,11 @@ function TodayInfo1({ zipcode, units, coords }) {
   return (
     <>
       {Object.values(todayWeather).length === 0 ? null : (
-        <Stack alignItems="center">
+        <Stack alignItems="center" m="1em">
           <Typography variant="h3" color="white">
             {todayWeather["city"]["name"]}
           </Typography>
-          <Stack direction="row" spacing="1.5em" mb="2.5em">
+          <Stack direction="row" spacing="1.5em" mb="2em">
             <Typography variant="h8" color="#B1B2B5">
               L: {Math.round(todayWeather["list"][0]["temp"]["min"])}
               &#176;
