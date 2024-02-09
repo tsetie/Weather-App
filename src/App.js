@@ -71,7 +71,7 @@ function App() {
         background: `linear-gradient(to right,${backgroundColor}, ${backgroundColor2})`,
       }}
     >
-      <Grid item xs={12} md={12} m="1em">
+      <Grid item xs={12} lg={12} m="1em">
         <LocationBar1
           handleZipcode={handleZipcode}
           handleCelcius={handleCelcius}
@@ -80,10 +80,10 @@ function App() {
           showAlert={showAlert}
         />
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} lg={4}>
         <TodayInfo1 zipcode={zipcode} units={units} coords={coords} />
       </Grid>
-      <Grid item xs={12} md={7}>
+      <Grid item xs={12} lg={7}>
         <HourlyForecast1
           zipcode={zipcode}
           units={units}
@@ -91,14 +91,14 @@ function App() {
           setShowAlert={setShowAlert}
         />
       </Grid>
-      <Grid item xs={12} md={4} justifyContent="space-between">
+      <Grid item xs={12} lg={4} justifyContent="space-between">
         <WeeklyForecast1 zipcode={zipcode} units={units} coords={coords} />
       </Grid>
-      <Grid item xs={12} md={6}>
-        <TodayDetails1 />
+      <Grid item xs={12} lg={7}>
+        <TodayDetails1 zipcode={zipcode} units={units} coords={coords} />
       </Grid>
 
-      {/* <Grid item xs={12} md={12}>
+      {/* <Grid item xs={12} lg={12}>
         <LocationBar
           handleZipcode={handleZipcode}
           handleCelcius={handleCelcius}
@@ -107,10 +107,10 @@ function App() {
           showAlert={showAlert}
         />
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} lg={4}>
         <TodayInfo zipcode={zipcode} units={units} coords={coords} />
       </Grid>
-      <Grid item xs={12} md={8}>
+      <Grid item xs={12} lg={8}>
         <HourlyForecast
           zipcode={zipcode}
           units={units}
@@ -118,10 +118,10 @@ function App() {
           setShowAlert={setShowAlert}
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} lg={6}>
         <WeeklyForecast zipcode={zipcode} units={units} coords={coords} />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} lg={6}>
         <TodayDetails
           zipcode={zipcode}
           units={units}

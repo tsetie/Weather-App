@@ -1,8 +1,10 @@
 import React from "react";
 import Box from "@mui/material/Box";
+import { useState, useEffect } from "react";
+
 import { Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { useState, useEffect } from "react";
+
 import Card from "@mui/material/Card";
 
 function TodayDetails({ zipcode, units, coords }) {

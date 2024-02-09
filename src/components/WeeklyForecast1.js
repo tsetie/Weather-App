@@ -93,7 +93,7 @@ function WeeklyForecast1({ zipcode, units, coords }) {
                       justifyContent="space-around"
                       alignItems="center"
                     >
-                      <Grid item xs={3} md={3}>
+                      <Grid item xs={3} lg={3}>
                         <Typography variant="h7" color="#B1B2B5">
                           {today.toDateString() !==
                           new Date(dayInfo["dt"] * 1000).toDateString()
@@ -106,12 +106,12 @@ function WeeklyForecast1({ zipcode, units, coords }) {
                             : "Today"}
                         </Typography>
                       </Grid>
-                      <Grid item xs={3} md={2}>
+                      <Grid item xs={3} lg={2}>
                         <Typography variant="h7" color="#FFF" fontWeight="bold">
                           {Math.round(dayInfo["temp"]["day"])}&#176;
                         </Typography>
                       </Grid>
-                      <Grid item xs={6} md={5}>
+                      <Grid item xs={6} lg={5}>
                         <Stack direction="row" alignItems="center">
                           <img
                             src={`https://openweathermap.org/img/wn/${dayInfo["weather"][0]["icon"]}@2x.png`}
@@ -122,6 +122,7 @@ function WeeklyForecast1({ zipcode, units, coords }) {
                         </Stack>
                       </Grid>
                     </Stack>
+                    <Divider />
                   </>
                 ))
               : null}

@@ -57,11 +57,29 @@ function TodayInfo1({ zipcode, units, coords }) {
   return (
     <>
       {Object.values(todayWeather).length === 0 ? null : (
-        <Stack alignItems="center" m="1em">
+        <Stack
+          alignItems="center"
+          justifyContent="center"
+          m="1em"
+          width="100%"
+          height="100%"
+        >
           <Typography variant="h3" color="white">
             {todayWeather["city"]["name"]}
           </Typography>
-          <Stack direction="row" spacing="1.5em" mb="2em">
+          <Stack direction="row" alignItems="center">
+            <Typography variant="h8" color="#B1B2B5">
+              {todayWeather["list"][0]["weather"][0]["main"]}
+            </Typography>
+            <img
+              src={`https://openweathermap.org/img/wn/${todayWeather["list"][0]["weather"][0]["icon"]}.png`}
+            ></img>
+          </Stack>
+
+          <Typography variant="h2" color="white" fontWeight="bold">
+            {Math.round(todayWeather["list"][0]["temp"]["day"])}&#176;
+          </Typography>
+          <Stack direction="row" spacing="1.5em">
             <Typography variant="h8" color="#B1B2B5">
               L: {Math.round(todayWeather["list"][0]["temp"]["min"])}
               &#176;
@@ -71,9 +89,6 @@ function TodayInfo1({ zipcode, units, coords }) {
               &#176;
             </Typography>
           </Stack>
-          <Typography variant="h2" color="white" fontWeight="bold">
-            {Math.round(todayWeather["list"][0]["temp"]["day"])}&#176;
-          </Typography>
         </Stack>
       )}
     </>

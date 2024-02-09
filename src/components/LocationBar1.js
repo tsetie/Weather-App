@@ -33,7 +33,7 @@ function LocationBar1({
       </Stack>
 
       <Grid container justifyContent="flex-end" alignItems="center">
-        <Grid item xs={11} md={8}>
+        <Grid item xs={11} lg={8}>
           <Stack direction="row">
             <TextField
               onChange={handleZipcode}
@@ -60,7 +60,7 @@ function LocationBar1({
           </Stack>
         </Grid>
 
-        <Grid item md={2} sx={{ display: { xs: "none", md: "block" } }}>
+        <Grid item lg={2} sx={{ display: { xs: "none", md: "block" } }}>
           <Stack
             direction="row"
             divider={

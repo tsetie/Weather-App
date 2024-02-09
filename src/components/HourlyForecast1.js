@@ -69,7 +69,7 @@ function HourlyForecast1({ zipcode, units, coords, setShowAlert }) {
           overflow: "auto",
         }}
       >
-        <Typography color="#B1B2B5" fontWeight="bold">
+        <Typography color="#B1B2B5" fontWeight="bold" mb="1em">
           HOURLY FORECAST
         </Typography>
 
