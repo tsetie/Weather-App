@@ -85,9 +85,10 @@ function WeeklyForecast1({ zipcode, units, coords }) {
             {weeklyWeatherData
               ? weeklyWeatherData.map((dayInfo, i) => (
                   <>
+                    {i == 0 ? null : <Divider />}
                     <Stack
                       direction="row"
-                      height="4vh"
+                      height="3.5vh"
                       mb="1em"
                       mt="1em"
                       justifyContent="space-around"
@@ -122,7 +123,6 @@ function WeeklyForecast1({ zipcode, units, coords }) {
                         </Stack>
                       </Grid>
                     </Stack>
-                    <Divider />
                   </>
                 ))
               : null}
