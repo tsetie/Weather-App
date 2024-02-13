@@ -1,13 +1,15 @@
 import React from "react";
-import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
+import { Card, Typography, Stack, Grid } from "@mui/material";
+import ThermostatIcon from "@mui/icons-material/Thermostat";
+import WaterDropOutlinedIcon from "@mui/icons-material/WaterDropOutlined";
+import AirOutlinedIcon from "@mui/icons-material/AirOutlined";
+import WaterOutlinedIcon from "@mui/icons-material/WaterOutlined";
+import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
+import WbTwilightOutlinedIcon from "@mui/icons-material/WbTwilightOutlined";
+import SpeedOutlinedIcon from "@mui/icons-material/SpeedOutlined";
 
-import { Typography } from "@mui/material";
-import Stack from "@mui/material/Stack";
-
-import Card from "@mui/material/Card";
-
-function TodayDetails({ zipcode, units, coords }) {
+function TodayDetails1({ zipcode, units, coords }) {
   const [todayDetails, setTodayDetails] = useState({});
 
   // Default get request for air conditions (Lowell)
@@ -63,12 +65,17 @@ function TodayDetails({ zipcode, units, coords }) {
   }
   var feelsLike;
   var wind;
+  var gust;
   var sunrise;
   var sunset;
+  var humidity;
+  var chanceOfRain;
+  var pressure;
 
   if (Object.values(todayDetails).length !== 0) {
     feelsLike = Math.floor(todayDetails["feels_like"]["day"]);
-    wind = Math.floor(todayDetails["gust"]);
+    wind = Math.floor(todayDetails["speed"]);
+    gust = Math.floor(todayDetails["gust"]);
     sunrise = new Date(todayDetails["sunrise"] * 1000).toLocaleTimeString(
       "en-US",
       {
@@ -81,76 +88,222 @@ function TodayDetails({ zipcode, units, coords }) {
         timeStyle: "short",
       }
     );
+    humidity = Math.floor(todayDetails["humidity"]);
+    chanceOfRain = todayDetails["pop"] * 100;
+    pressure = Math.floor(todayDetails["pressure"] * 0.02953);
   }
-
   return (
     <>
-      <Card
-        sx={{
-          backgroundColor: "#56637B",
-          borderRadius: "2.5em",
-          height: "30%",
-          p: "2em",
-          mt: "1.5em",
-        }}
-      >
-        <Typography color="#B1B2B5" fontWeight="bold" pb="1em">
-          DAY DETAILS
-        </Typography>
-        {/* 1 row */}
-        <Stack direction="row">
-          {/* col 1 holding feels like and wind */}
-          <Stack width="50%">
-            {/* col 1 row 1 holding feels like */}
-            <Stack mb="2em">
-              <Typography variant="h5" color="#B1B2B5" fontWeight="bold">
-                Feels Like
-              </Typography>
-              <Typography variant="h4" color="#FFF" fontWeight="bold">
-                {feelsLike}
-                {"\u00B0"}
-              </Typography>
-            </Stack>
-            {/* col 1 row 2 holding wind */}
-            <Stack>
-              <Typography variant="h5" color="#B1B2B5" fontWeight="bold">
-                Wind
-              </Typography>
-              {units == "imperial" ? (
-                <Typography variant="h4" color="#FFF" fontWeight="bold">
-                  {wind} m/h
+      <Stack pl="1.5em">
+        <Grid container spacing={2} width="96%">
+          <Grid item xs={6} lg={3}>
+            <Card
+              sx={{
+                backgroundColor: "#56637B",
+                borderRadius: "2.5em",
+                p: "1.5em",
+                mt: "1em",
+              }}
+            >
+              <Stack>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  spacing={1}
+                  width="130vw"
+                  sx={{
+                    transform: {
+                      xs: "translate(-1.8%)",
+                      md: "translate(-.2%)",
+                    },
+                  }}
+                >
+                  <ThermostatIcon sx={{ color: "#B1B2B5" }} />
+                  <Typography variant="h6" color="#B1B2B5" fontWeight="bold">
+                    Feels Like
+                  </Typography>
+                </Stack>
+
+                <Typography variant="h5" color="#FFF" fontWeight="bold">
+                  {feelsLike}
+                  {"\u00B0"}
                 </Typography>
-              ) : (
-                <Typography variant="h4" color="#FFF" fontWeight="bold">
-                  {wind} km/h
+              </Stack>
+            </Card>
+          </Grid>
+          <Grid item xs={6} lg={3}>
+            <Card
+              sx={{
+                backgroundColor: "#56637B",
+                borderRadius: "2.5em",
+                p: "1.5em",
+                mt: "1em",
+              }}
+            >
+              <Stack>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <WaterOutlinedIcon sx={{ color: "#B1B2B5" }} />
+                  <Typography variant="h6" color="#B1B2B5" fontWeight="bold">
+                    Humidity
+                  </Typography>
+                </Stack>
+                <Typography variant="h5" color="#FFF" fontWeight="bold">
+                  {humidity}%
                 </Typography>
-              )}
-            </Stack>
-          </Stack>
-          {/* col 2 holding sunrise/sunset */}
-          <Stack>
-            {/* col 2 row 1 holding sunrise */}
-            <Stack mb="2em">
-              <Typography variant="h5" color="#B1B2B5" fontWeight="bold">
-                Sunrise
-              </Typography>
-              <Typography variant="h4" color="#FFF" fontWeight="bold">
-                {sunrise}
-              </Typography>
-            </Stack>
-            {/* col 2 row 2 holding sunset */}
-            <Stack>
-              <Typography variant="h5" color="#B1B2B5" fontWeight="bold">
-                Sunset
-              </Typography>
-              <Typography variant="h4" color="#FFF" fontWeight="bold">
-                {sunset}
-              </Typography>
-            </Stack>
-          </Stack>
-        </Stack>
-      </Card>
+              </Stack>
+            </Card>
+          </Grid>
+          <Grid item xs={6} lg={3}>
+            <Card
+              sx={{
+                backgroundColor: "#56637B",
+                borderRadius: "2.5em",
+                p: "1.5em",
+                mt: "1em",
+              }}
+            >
+              <Stack>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <WaterDropOutlinedIcon sx={{ color: "#B1B2B5" }} />
+                  <Typography variant="h6" color="#B1B2B5" fontWeight="bold">
+                    Rain
+                  </Typography>
+                </Stack>
+
+                <Typography variant="h5" color="#FFF" fontWeight="bold">
+                  {chanceOfRain}%
+                </Typography>
+              </Stack>
+            </Card>
+          </Grid>
+          <Grid item xs={6} lg={3}>
+            <Card
+              sx={{
+                backgroundColor: "#56637B",
+                borderRadius: "2.5em",
+                p: "1.5em",
+                mt: "1em",
+              }}
+            >
+              <Stack>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <SpeedOutlinedIcon sx={{ color: "#B1B2B5" }} />
+                  <Typography variant="h6" color="#B1B2B5" fontWeight="bold">
+                    Pressure
+                  </Typography>
+                </Stack>
+                <Typography variant="h5" color="#FFF" fontWeight="bold">
+                  {pressure} inHg
+                </Typography>
+              </Stack>
+            </Card>
+          </Grid>
+          <Grid item xs={6} lg={3}>
+            <Card
+              sx={{
+                backgroundColor: "#56637B",
+                borderRadius: "2.5em",
+                p: "1.5em",
+                mt: "1em",
+              }}
+            >
+              <Stack>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <AirOutlinedIcon sx={{ color: "#B1B2B5" }} />
+                  <Typography variant="h6" color="#B1B2B5" fontWeight="bold">
+                    Wind
+                  </Typography>
+                </Stack>
+
+                {units == "imperial" ? (
+                  <Typography variant="h5" color="#FFF" fontWeight="bold">
+                    {wind} mph
+                  </Typography>
+                ) : (
+                  <Typography variant="h5" color="#FFF" fontWeight="bold">
+                    {wind} km/h
+                  </Typography>
+                )}
+              </Stack>
+            </Card>
+          </Grid>
+          <Grid item xs={6} lg={3}>
+            <Card
+              sx={{
+                backgroundColor: "#56637B",
+                borderRadius: "2.5em",
+                p: "1.5em",
+                mt: "1em",
+              }}
+            >
+              <Stack>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <AirOutlinedIcon sx={{ color: "#B1B2B5" }} />
+                  <Typography variant="h6" color="#B1B2B5" fontWeight="bold">
+                    Gust
+                  </Typography>
+                </Stack>
+                {units == "imperial" ? (
+                  <Typography variant="h5" color="#FFF" fontWeight="bold">
+                    {gust} mph
+                  </Typography>
+                ) : (
+                  <Typography variant="h5" color="#FFF" fontWeight="bold">
+                    {gust} km/h
+                  </Typography>
+                )}
+              </Stack>
+            </Card>
+          </Grid>
+
+          <Grid item xs={6} lg={3}>
+            <Card
+              sx={{
+                backgroundColor: "#56637B",
+                borderRadius: "2.5em",
+                p: "1.5em",
+                mt: "1em",
+              }}
+            >
+              <Stack>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <WbSunnyOutlinedIcon sx={{ color: "#B1B2B5" }} />
+                  <Typography variant="h6" color="#B1B2B5" fontWeight="bold">
+                    Sunrise
+                  </Typography>
+                </Stack>
+
+                <Typography variant="h5" color="#FFF" fontWeight="bold">
+                  {sunrise}
+                </Typography>
+              </Stack>
+            </Card>
+          </Grid>
+          <Grid item xs={6} lg={3}>
+            <Card
+              sx={{
+                backgroundColor: "#56637B",
+                borderRadius: "2.5em",
+                p: "1.5em",
+                mt: "1em",
+              }}
+            >
+              <Stack>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <WbTwilightOutlinedIcon sx={{ color: "#B1B2B5" }} />
+                  <Typography variant="h6" color="#B1B2B5" fontWeight="bold">
+                    Sunset
+                  </Typography>
+                </Stack>
+                <Typography variant="h5" color="#FFF" fontWeight="bold">
+                  {sunset}
+                </Typography>
+              </Stack>
+            </Card>
+          </Grid>
+        </Grid>
+      </Stack>
     </>
   );
 }
-export default TodayDetails;
+export default TodayDetails1;

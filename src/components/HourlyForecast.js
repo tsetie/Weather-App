@@ -1,10 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Snackbar, Typography } from "@mui/material";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import Stack from "@mui/material/Stack";
-import Card from "@mui/material/Card";
-function HourlyForecast({ zipcode, units, coords, setShowAlert }) {
+import { Typography, Card, Stack, Grid, Box } from "@mui/material";
+function HourlyForecast1({ zipcode, units, coords, setShowAlert }) {
   const [hourlyTemp, setHourlyTemp] = useState([]);
 
   // Default get request for weather (Las Vegas)
@@ -67,17 +64,16 @@ function HourlyForecast({ zipcode, units, coords, setShowAlert }) {
         sx={{
           backgroundColor: "#56637B",
           borderRadius: "2.5em",
-          width: "100%",
           p: "2em",
+          m: "1em",
+          overflow: "auto",
         }}
       >
-        <Stack direction="row">
-          <Typography color="#B1B2B5" fontWeight="bold" pb="1em">
-            HOURLY FORECAST
-          </Typography>
-        </Stack>
+        <Typography color="#B1B2B5" fontWeight="bold" mb="1em">
+          HOURLY FORECAST
+        </Typography>
 
-        <Stack direction={{ xs: "column", md: "row" }} width="100%">
+        <Stack direction="row">
           {hourlyTemp
             ? hourlyTemp.map((temp, i) => (
                 <Stack alignItems="center">
@@ -86,9 +82,10 @@ function HourlyForecast({ zipcode, units, coords, setShowAlert }) {
                       timeStyle: "short",
                     })}
                   </Typography>
-                  <img
+                  <Box
+                    component="img"
                     src={`https://openweathermap.org/img/wn/${temp["weather"][0]["icon"]}@2x.png`}
-                  ></img>
+                  ></Box>
                   <Typography variant="h6" color="#FFF" fontWeight="bold">
                     {Math.round(temp["main"]["temp"])}&#176;
                   </Typography>
@@ -100,4 +97,4 @@ function HourlyForecast({ zipcode, units, coords, setShowAlert }) {
     </>
   );
 }
-export default HourlyForecast;
+export default HourlyForecast1;

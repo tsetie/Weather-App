@@ -1,14 +1,16 @@
 import React from "react";
-import { ListItem, Typography } from "@mui/material";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import Stack from "@mui/material/Stack";
-import Card from "@mui/material/Card";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import List from "@mui/material/List";
+import {
+  Typography,
+  Card,
+  ListItem,
+  Stack,
+  Box,
+  Divider,
+  List,
+  Grid,
+} from "@mui/material";
 import { useState, useEffect } from "react";
-
-function WeeklyForecast({ zipcode, units, coords }) {
+function WeeklyForecast1({ zipcode, units, coords }) {
   var today = new Date();
   const [weeklyWeatherData, setWeeklyWeatherData] = useState([]);
 
@@ -70,70 +72,64 @@ function WeeklyForecast({ zipcode, units, coords }) {
           backgroundColor: "#56637B",
           borderRadius: "2.5em",
           mt: "2em",
-          p: "1.5em",
+          p: "2em",
+          ml: "1em",
+          mr: "1em",
         }}
       >
-        <Stack
-          direction="row"
-          width="25vw"
-          height="4vh"
-          pt="1em"
-          pl="1em"
-          pr="1em"
-        >
-          <Typography color="#B1B2B5" fontWeight="bold">
-            7-DAY FORECAST
-          </Typography>
-        </Stack>
-        <List>
-          {weeklyWeatherData
-            ? weeklyWeatherData.map((dayInfo, i) => (
-                <>
-                  <ListItem>
+        <Typography color="#B1B2B5" fontWeight="bold">
+          7-DAY FORECAST
+        </Typography>
+        <Grid container>
+          <Stack width="100%">
+            {weeklyWeatherData
+              ? weeklyWeatherData.map((dayInfo, i) => (
+                  <>
+                    {i == 0 ? null : <Divider />}
                     <Stack
                       direction="row"
-                      justifyContent="space-between"
-                      alignItems="center"
-                      width="25vw"
-                      height="4vh"
+                      height="3.5vh"
                       mb="1em"
                       mt="1em"
+                      justifyContent="space-around"
+                      alignItems="center"
                     >
-                      <Typography variant="h7" color="#B1B2B5">
-                        {today.toDateString() !==
-                        new Date(dayInfo["dt"] * 1000).toDateString()
-                          ? new Date(dayInfo["dt"] * 1000).toLocaleDateString(
-                              "en-us",
-                              {
-                                weekday: "short",
-                              }
-                            )
-                          : "Today"}
-                      </Typography>
-                      <Typography variant="h7" color="#FFF" fontWeight="bold">
-                        {Math.round(dayInfo["temp"]["day"])}&#176;
-                      </Typography>
-                      <Stack
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <img
-                          src={`https://openweathermap.org/img/wn/${dayInfo["weather"][0]["icon"]}@2x.png`}
-                        ></img>
-                        <Typography variant="h7" color="#FFF">
-                          {dayInfo["weather"][0]["main"]}
+                      <Grid item xs={3} lg={3}>
+                        <Typography variant="h7" color="#B1B2B5">
+                          {today.toDateString() !==
+                          new Date(dayInfo["dt"] * 1000).toDateString()
+                            ? new Date(dayInfo["dt"] * 1000).toLocaleDateString(
+                                "en-us",
+                                {
+                                  weekday: "short",
+                                }
+                              )
+                            : "Today"}
                         </Typography>
-                      </Stack>
+                      </Grid>
+                      <Grid item xs={3} lg={2}>
+                        <Typography variant="h7" color="#FFF" fontWeight="bold">
+                          {Math.round(dayInfo["temp"]["day"])}&#176;
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6} lg={5}>
+                        <Stack direction="row" alignItems="center">
+                          <img
+                            src={`https://openweathermap.org/img/wn/${dayInfo["weather"][0]["icon"]}@2x.png`}
+                          ></img>
+                          <Typography variant="h7" color="#FFF">
+                            {dayInfo["weather"][0]["main"]}
+                          </Typography>
+                        </Stack>
+                      </Grid>
                     </Stack>
-                  </ListItem>
-                  {i < 6 && <Divider variant="middle" component="li" />}
-                </>
-              ))
-            : null}
-        </List>
+                  </>
+                ))
+              : null}
+          </Stack>
+        </Grid>
       </Card>
     </>
   );
 }
-export default WeeklyForecast;
+export default WeeklyForecast1;

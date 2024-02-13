@@ -1,15 +1,18 @@
 import React from "react";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
+import {
+  Typography,
+  Card,
+  Stack,
+  Alert,
+  AlertTitle,
+  Grid,
+  TextField,
+  Button,
+  Divider,
+} from "@mui/material";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
-import SearchIcon from "@mui/icons-material/Search";
-import Stack from "@mui/material/Stack";
-import Divider from "@mui/material/Divider";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 
-function LocationBar({
+function LocationBar1({
   handleZipcode,
   handleCelcius,
   handleFahrenheit,
@@ -29,30 +32,35 @@ function LocationBar({
         ) : null}
       </Stack>
 
-      <Grid container spacing={2} justifyContent="center">
-        <Grid item xs={8}>
-          <TextField
-            onChange={handleZipcode}
-            type="number"
-            id="outlined-basic"
-            label="Search Zip Code"
-            variant="outlined"
-            fullWidth
-            sx={{ input: { color: "#FFFFFF" } }}
-            InputLabelProps={{
-              style: {
-                color: "#fff",
-                fontWeight: "bold",
-              },
-            }}
-          />
+      <Grid container justifyContent="flex-end" alignItems="center">
+        <Grid item xs={11} lg={8}>
+          <Stack direction="row">
+            <TextField
+              onChange={handleZipcode}
+              type="number"
+              label="Search Zip Code"
+              variant="filled"
+              sx={{
+                input: { color: "#B1B2B5", background: "#061426" },
+                width: "90% ",
+              }}
+              InputLabelProps={{
+                style: {
+                  color: "#B1B2B5",
+                  fontWeight: "bold",
+                },
+              }}
+            ></TextField>
+            <Button onClick={handleGettingUserLocation} sx={{ width: "10%" }}>
+              <FmdGoodOutlinedIcon
+                fontSize="large"
+                style={{ color: "#B1B2B5" }}
+              />
+            </Button>
+          </Stack>
         </Grid>
-        <Grid item xs={1}>
-          <Button onClick={handleGettingUserLocation}>
-            <FmdGoodOutlinedIcon fontSize="large" style={{ color: "#FFF" }} />
-          </Button>
-        </Grid>
-        <Grid item xs={1}>
+
+        <Grid item lg={2} sx={{ display: { xs: "none", md: "block" } }}>
           <Stack
             direction="row"
             divider={
@@ -61,16 +69,14 @@ function LocationBar({
           >
             <Button
               variant="Text"
-              fullWidth
-              style={{ color: "#FFFFFF", fontSize: "20px" }}
+              style={{ color: "#B1B2B5", fontSize: "20px" }}
               onClick={handleFahrenheit}
             >
               F &#176;
             </Button>
             <Button
               variant="Text"
-              fullWidth
-              style={{ color: "#FFFFFF", fontSize: "20px" }}
+              style={{ color: "#B1B2B5", fontSize: "20px" }}
               onClick={handleCelcius}
             >
               C &#176;
@@ -81,4 +87,4 @@ function LocationBar({
     </>
   );
 }
-export default LocationBar;
+export default LocationBar1;

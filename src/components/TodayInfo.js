@@ -1,12 +1,9 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
-import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
+import { Typography, Card, Stack, Grid } from "@mui/material";
 
-function TodayInfo({ zipcode, units, coords }) {
+function TodayInfo1({ zipcode, units, coords }) {
   const [todayWeather, setTodayWeather] = useState({});
-
   // Default get request for weather (Lowell)
   useEffect(() => {
     getTodayWeather(zipcode);
@@ -57,47 +54,44 @@ function TodayInfo({ zipcode, units, coords }) {
         console.log(err.message);
       });
   }
-
   return (
     <>
-      <Box display="flex" justifyContent="center">
-        {Object.values(todayWeather).length === 0 ? null : (
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            width="50vw"
-            alignItems="center"
-          >
-            <Stack p={3.5}>
-              <Typography variant="h3" color="white" textAlign="center">
-                {todayWeather["city"]["name"]}
-              </Typography>
-              <Stack
-                direction="row"
-                spacing="1.5em"
-                justifyContent="flex-start"
-                mb="2.5em"
-              >
-                <Typography variant="h8" color="#B1B2B5">
-                  L: {Math.round(todayWeather["list"][0]["temp"]["min"])}&#176;
-                </Typography>
-                <Typography variant="h8" color="#B1B2B5">
-                  H: {Math.round(todayWeather["list"][0]["temp"]["max"])}&#176;
-                </Typography>
-              </Stack>
-              <Typography
-                variant="h2"
-                color="white"
-                justifyContent="flex-start"
-                fontWeight="bold"
-              >
-                {Math.round(todayWeather["list"][0]["temp"]["day"])}&#176;
-              </Typography>
-            </Stack>
+      {Object.values(todayWeather).length === 0 ? null : (
+        <Stack
+          alignItems="center"
+          justifyContent="center"
+          m="1em"
+          width="90%"
+          height="90%"
+        >
+          <Typography variant="h3" color="white">
+            {todayWeather["city"]["name"]}
+          </Typography>
+          <Stack direction="row" alignItems="center">
+            <Typography variant="h8" color="#B1B2B5">
+              {todayWeather["list"][0]["weather"][0]["main"]}
+            </Typography>
+            <img
+              src={`https://openweathermap.org/img/wn/${todayWeather["list"][0]["weather"][0]["icon"]}.png`}
+            ></img>
           </Stack>
-        )}
-      </Box>
+
+          <Typography variant="h2" color="white" fontWeight="bold">
+            {Math.round(todayWeather["list"][0]["temp"]["day"])}&#176;
+          </Typography>
+          <Stack direction="row" spacing="1.5em">
+            <Typography variant="h8" color="#B1B2B5">
+              L: {Math.round(todayWeather["list"][0]["temp"]["min"])}
+              &#176;
+            </Typography>
+            <Typography variant="h8" color="#B1B2B5">
+              H: {Math.round(todayWeather["list"][0]["temp"]["max"])}
+              &#176;
+            </Typography>
+          </Stack>
+        </Stack>
+      )}
     </>
   );
 }
-export default TodayInfo;
+export default TodayInfo1;

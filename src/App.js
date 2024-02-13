@@ -1,20 +1,12 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
-import "./components/LocationBar";
-import LocationBar from "./components/LocationBar";
 import Grid from "@mui/material/Grid";
-import TodayInfo from "./components/TodayInfo";
-import HourlyForecast from "./components/HourlyForecast";
-import WeeklyForecast from "./components/WeeklyForecast";
-import TodayDetails from "./components/TodayDetails";
-import Stack from "@mui/material/Stack";
-
-import HourlyForecast1 from "./components/HourlyForecast1";
-import LocationBar1 from "./components/LocationBar1";
-import TodayDetails1 from "./components/TodayDetails1";
-import TodayInfo1 from "./components/TodayInfo1";
-import WeeklyForecast1 from "./components/WeeklyForecast1";
+import HourlyForecast1 from "./components/HourlyForecast";
+import LocationBar1 from "./components/LocationBar";
+import TodayDetails1 from "./components/TodayDetails";
+import TodayInfo1 from "./components/TodayInfo";
+import WeeklyForecast1 from "./components/WeeklyForecast";
 
 function App() {
   var dayColor = "#FBAB7E";
@@ -68,6 +60,7 @@ function App() {
     <Grid
       container
       sx={{
+        pb: "1em",
         background: `linear-gradient(to right,${backgroundColor}, ${backgroundColor2})`,
       }}
     >
@@ -97,37 +90,6 @@ function App() {
       <Grid item xs={12} lg={7}>
         <TodayDetails1 zipcode={zipcode} units={units} coords={coords} />
       </Grid>
-
-      {/* <Grid item xs={12} lg={12}>
-        <LocationBar
-          handleZipcode={handleZipcode}
-          handleCelcius={handleCelcius}
-          handleFahrenheit={handleFahrenheit}
-          handleGettingUserLocation={handleGettingUserLocation}
-          showAlert={showAlert}
-        />
-      </Grid>
-      <Grid item xs={12} lg={4}>
-        <TodayInfo zipcode={zipcode} units={units} coords={coords} />
-      </Grid>
-      <Grid item xs={12} lg={8}>
-        <HourlyForecast
-          zipcode={zipcode}
-          units={units}
-          coords={coords}
-          setShowAlert={setShowAlert}
-        />
-      </Grid>
-      <Grid item xs={12} lg={6}>
-        <WeeklyForecast zipcode={zipcode} units={units} coords={coords} />
-      </Grid>
-      <Grid item xs={12} lg={6}>
-        <TodayDetails
-          zipcode={zipcode}
-          units={units}
-          coords={coords}
-        ></TodayDetails>
-      </Grid> */}
     </Grid>
   );
 }
